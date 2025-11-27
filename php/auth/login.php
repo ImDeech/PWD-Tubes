@@ -4,7 +4,7 @@ require 'config.php';
 
 // Jika sudah login, redirect ke index
 if (isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+    header("Location: ../../index.xhtml");
     exit;
 }
 
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $user['username'];
             $_SESSION['nama'] = $user['nama'];
             
-            header("Location: index.php");
+            header("Location: ../../index.xhtml");
             exit;
         } else {
             $message = "Username atau Password salah.";
