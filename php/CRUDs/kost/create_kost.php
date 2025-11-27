@@ -6,7 +6,7 @@ if(isset($_POST['submit'])){
     $alamat = $_POST['alamat'];
     $deskripsi = $_POST['deskripsi'];
 
-    $query = "INSERT INTO kost(nama_kost, alamat, deskripsi) VALUES ('$nama', '$alamat', '$deskripsi')";
+    $query = "INSERT INTO kost(nama_kost, alamat, deskripsi) VALUES ('$nama_kost', '$alamat', '$deskripsi')";
     mysqli_query($conn, $query);
 
     header("Location: read_kost.php");
@@ -23,8 +23,8 @@ if(isset($_POST['submit'])){
 
         <form method="post" action="">
             <input type="text" name="nama_kost" placeholder="Nama Kost" required><br><br>
-            <textarea name="alamat_kost" placeholder="Alamat Kost" required></textarea><br><br>
-            <textarea name="deskripsi_kost" placeholder="Tuliskan deskripsi"></textarea><br><br>
+            <textarea name="alamat" placeholder="Alamat Kost" required></textarea><br><br>
+            <textarea name="deskripsi" placeholder="Tuliskan deskripsi"></textarea><br><br>
             <button type="submit">Create</button>
             <button type="reset">Batal</button>
         </form>
