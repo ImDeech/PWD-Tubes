@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'config.php';
+require 'db_connection.php';
 
 // Jika sudah login, redirect ke index
 if (isset($_SESSION['user_id'])) {
@@ -16,9 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!empty($username) && !empty($password)) {
         // 1. Cari user berdasarkan username
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->execute([$username]);
-        $user = $stmt->fetch();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username); 
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
 
         // 2. Verifikasi Password
         // password_verify mencocokkan password inputan dengan hash di database
