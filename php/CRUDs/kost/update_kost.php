@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
             <input type="text" name="nama_kost" placeholder="Nama Kost" required><br><br>
             <textarea name="alamat" placeholder="Alamat Kost" required></textarea><br><br>
             <textarea name="deskripsi" placeholder="Tuliskan deskripsi"></textarea><br><br>
-            <button type="submit">Create</button>
+            <button type="submit">Update</button>
             <button type="reset">Reset</button>
         </form>
     </body>
