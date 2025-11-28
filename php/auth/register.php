@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require 'db_connection.php';
 
 $message = '';
 
@@ -16,19 +16,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // PASSWORD_DEFAULT menggunakan algoritma bcrypt yang kuat
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-        try {
-            // 2. Query Insert dengan Prepared Statement (Mencegah SQL Injection)
-            $sql = "INSERT INTO users (username, nama, email, password) VALUES (?, ?, ?, ?)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$username, $nama, $email, $password_hash]);
-            
-            $message = "Registrasi berhasil! Silakan <a href='login.php'>Login</a>.";
-        } catch (PDOException $e) {
-            // Cek jika error karena duplikat (username/email sudah ada)
-            if ($e->getCode() == 23000) {
-                $message = "Username atau Email sudah terdaftar.";
+        $check = $conn->prepare("SELECT user_id FROM users WHERE username = ? OR email = ?");
+        $check->bind_param("ss", $username, $email);
+        $check->execute();
+        $check_result = $check->get_result();
+        
+        // Cek apakah username atau email sudah terdaftar
+        if ($check_result->num_rows > 0) {
+            $message = "Username atau Email sudah terdaftar!";
+        } else {
+
+            // Insert data user
+            $stmt = $conn->prepare("INSERT INTO users (username, nama, email, password) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $username, $nama, $email, $password_hash);
+
+            if ($stmt->execute()) {
+                $message = "Registrasi berhasil! Silakan <a href='login.php'>Login</a>.";
             } else {
-                $message = "Terjadi kesalahan: " . $e->getMessage();
+                $message = "Gagal registrasi: " . $conn->error;
             }
         }
     } else {
