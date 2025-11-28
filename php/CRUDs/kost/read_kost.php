@@ -1,5 +1,5 @@
 <?php
-include "./php/auth/db_connection.php";
+include "../php/auth/db_connection.php";
 
 $result = mysqli_query($conn, "SELECT * FROM kost ORDER BY kost_id DESC");
 ?>

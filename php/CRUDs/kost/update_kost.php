@@ -1,5 +1,5 @@
 <?php 
-include "./php/auth/db_connection.php";
+include "../php/auth/db_connection.php";
 
 $id = $_GET['kost_id'];
 

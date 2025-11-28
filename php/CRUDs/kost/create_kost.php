@@ -1,5 +1,5 @@
 <?php
-include "./php/auth/db_connection.php";
+include "../php/auth/db_connection.php";
 
 if(isset($_POST['submit'])){
     $nama_kost = $_POST['nama_kost'];
