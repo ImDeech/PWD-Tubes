@@ -1,0 +1,113 @@
+/* Untuk mereset  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Untuk keseluruhan */
+body {
+    background: #F7F9FC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Kontainer bagian tengah */
+.container {
+    width: 360px;
+    background: #FFFFFF;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* Splash */
+.splash-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #367BF5;
+    margin-top: 20px;
+}
+
+/* Ini habis splash yang ada gambar2 gitu */
+.onboard-img {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.onboard-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.onboard-text {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.next-btn {
+    background: #367BF5;
+    color: #fff;
+    padding: 12px;
+    display: inline-block;
+    width: 100%;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Form untuk login */
+.form-label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+}
+
+.login-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.login-sub {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.login-btn {
+    background: #367BF5;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border-radius: 16px;
+    margin-top: 20px;
+    border: none;
+    font-size: 16px;
+}
+
+.register-text {
+    margin-top: 18px;
+    font-size: 13px;
+}
+
+.register-text a {
+    color: #367BF5;
+    font-weight: bold;
+    text-decoration: none;
+}
