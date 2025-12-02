@@ -25,18 +25,3 @@ function showNotification(message, type) {
 
     }, 3000);
 }
-
-// Notifikasi sukses
-function notifySuccess(msg) {
-    showNotification(msg, "success");
-}
-
-// Notifikasi gagal / error
-function notifyError(msg) {
-    showNotification(msg, "error");
-}
-
-// Notifikasi informasi
-function notifyInfo(msg) {
-    showNotification(msg, "info");
-}
