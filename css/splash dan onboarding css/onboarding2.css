@@ -1,0 +1,62 @@
+/* Tetap import font biar konsisten */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+#screen-container {
+    /* GANTI BACKGROUND:
+       Di sini kita panggil gambar interior void. */
+    background-image: url('onboarding gambar 2.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+/* Sisa CSS di bawah ini SAMA PERSIS dengan Dashboard 2.
+   (Dalam dunia kerja, biasanya kita gabung jadi satu file 'style.css' umum,
+   tapi untuk belajar, dipisah gini gapapa biar gak bingung). */
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 10%, transparent 60%);
+    z-index: 1;
+}
+
+.content-bottom {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    width: 85%;
+    max-width: 400px;
+    padding-bottom: 50px;
+}
+
+.content-bottom h2 { font-size: 26px; font-weight: 700; margin-bottom: 15px; line-height: 1.3; }
+.content-bottom p { font-size: 14px; margin-bottom: 30px; line-height: 1.5; opacity: 0.9; }
+
+.dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; }
+.dot { width: 8px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+.dot.active { background: #2659b6; width: 24px; border-radius: 4px; }
+
+/* Styling Tombol Link */
+.btn-main {
+    display: block;
+    background-color: #2659b6;
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    padding: 15px 0;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.btn-main:hover { background-color: #1e4694; }

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+#screen-container {
+    /* BACKGROUND: Masukin gambar gedung di sini */
+    background-image: url('onboarding gambar 1.jpg'); 
+    background-size: cover;      /* Gambar dipaksa memenuhi layar tanpa gepeng */
+    background-position: center; /* Fokus gambar di tengah */
+    height: 100vh;
+    position: relative;          /* Wajib ada biar anak-anaknya bisa diatur posisinya */
+    
+    /* Layout */
+    display: flex;
+    align-items: flex-end;       /* Konten ditaruh di BAWAH layar */
+    justify-content: center;     /* Konten ditaruh di TENGAH (kiri-kanan) */
+}
+
+/* LAPISAN GELAP (GRADASI) */
+.overlay {
+    position: absolute;          /* Melayang bebas di atas container */
+    top: 0; left: 0; right: 0; bottom: 0; /* Menutupi seluruh layar */
+    
+    /* Gradasi dari bawah item pekat (0.8) ke atas bening (transparent) */
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 10%, transparent 60%);
+    z-index: 1;                  /* Level 1 (di atas gambar background) */
+}
+
+.content-bottom {
+    position: relative;
+    z-index: 2;                  /* Level 2 (di atas overlay biar bisa dipencet) */
+    text-align: center;
+    color: white;
+    width: 85%;                  /* Lebar konten 85% dari layar HP */
+    max-width: 400px;            /* Jangan lebih lebar dari 400px (buat di laptop) */
+    padding-bottom: 50px;        /* Jarak dari pinggir bawah layar */
+}
+
+/* Tipografi Judul & Paragraf */
+.content-bottom h2 { font-size: 26px; font-weight: 700; margin-bottom: 15px; line-height: 1.3; }
+.content-bottom p { font-size: 14px; margin-bottom: 30px; line-height: 1.5; opacity: 0.9; }
+
+/* DOTS (Titik Indikator) */
+.dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; }
+.dot { width: 8px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 50%; } /* Bulat */
+.dot.active { background: #2659b6; width: 24px; border-radius: 4px; } /* Titik aktif jadi panjang biru */
+
+/* TOMBOL (Dandanin Link <a> jadi kotak) */
+.btn-main {
+    display: block;              /* Biar bisa punya lebar & tinggi */
+    background-color: #2659b6;   /* Warna biru */
+    color: white;
+    text-decoration: none;       /* Ilangin garis bawah khas link */
+    width: 100%;                 /* Lebar full container */
+    padding: 15px 0;             /* Tebal tombol */
+    border-radius: 10px;         /* Sudut tumpul */
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;             /* Kursor jadi tangan kalau di laptop */
+    box-sizing: border-box;      /* Biar padding gak nambahin ukuran total */
+}
+
+/* Efek pas kursor nyentuh tombol (Hover) */
+.btn-main:hover { background-color: #1e4694; } /* Warna jadi agak gelap dikit */
