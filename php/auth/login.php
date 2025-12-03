@@ -42,19 +42,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html>
-<head><title>Login Kost</title></head>
-<body>
-    <h2>Login</h2>
-    <?php if($message): ?> <p style="color:red;"><?= $message ?></p> <?php endif; ?>
-    
-    <form method="POST" action="">
-        <input type="text" name="username" placeholder="Username" required><br><br>
-        <input type="password" name="password" placeholder="Password" required><br><br>
-        <button type="submit">Masuk</button>
-    </form>
-    <p>Belum punya akun? <a href="register.php">Daftar disini</a></p>
-</body>
-</html>
