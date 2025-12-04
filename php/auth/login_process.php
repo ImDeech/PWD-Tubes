@@ -89,7 +89,7 @@ try {
     if (($user['role'] ?? 'user') === 'admin') {
         header("Location: ../../admin/dashboard.php");
     } else {
-        header("Location: ../../xhtml/home.xhtml");
+        header("Location: ../../php/pages/home.php");
     }
     exit;
     
