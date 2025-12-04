@@ -3,9 +3,6 @@
 body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
 #screen-container {
-    /* BACKGROUND:
-       Perhatikan nama file! Tadi kamu upload 'oboarding gambar 3.jpg' (kurang huruf 'n').
-       Pastikan tulisan di bawah ini SAMA PERSIS dengan nama file aslimu. */
     background-image: url('onboarding gambar 3.jpg'); 
     background-size: cover;
     background-position: center;
@@ -35,7 +32,6 @@ body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
 .content-bottom h2 { font-size: 26px; font-weight: 700; margin-bottom: 15px; line-height: 1.3; }
 
-/* Update margin-bottom di paragraf biar jarak ke tombol agak jauh dikit */
 .content-bottom p { font-size: 14px; margin-bottom: 40px; line-height: 1.5; opacity: 0.9; }
 
 .btn-main {
@@ -51,23 +47,18 @@ body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
     text-align: center;
     cursor: pointer;
     box-sizing: border-box;
-    
-    /* MARGIN BAWAH PENTING:
-       Kita kasih jarak 15px di bawah tombol supaya tulisan "Tidak memiliki akun?"
-       gak nempel banget sama tombolnya. */
     margin-bottom: 15px; 
 }
 .btn-main:hover { background-color: #1e4694; }
 
-/* STYLE TAMBAHAN KHUSUS HALAMAN INI */
 .footer-link {
     font-size: 12px;
     color: white;
 }
 
-/* Mewarnai link 'Daftar Sekarang' jadi biru */
 .footer-link a {
     color: #2659b6; 
     text-decoration: none; /* Biar gak ada garis bawah */
     font-weight: 700;      /* Biar tebal */
+
 }
