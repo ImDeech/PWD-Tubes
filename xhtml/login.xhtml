@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="id" lang="id">
+<head>
+    <title>Login - Sistem Kost</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+    <style type="text/css">
+        /* --- CSS kamu tetap sama, tidak diubah --- */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2853AF;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: #2853AF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .success-message {
+            color: #388e3c;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h2 style="text-align:center; margin-bottom:20px;">Login ke Sistem Kost</h2>
+
+        <!-- ERROR & SUCCESS MSG -->
+        <div id="errorMessage" class="error-message">
+            <strong>Error:</strong> <span id="errorText"></span>
+        </div>
+
+        <div id="successMessage" class="success-message">
+            <strong>Success:</strong> <span id="successText"></span>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form id="loginForm" method="POST" action="../php/auth/login_process.php">
+
+            <div class="form-group">
+                <label for="username">Username atau Email:</label>
+                <input type="text" id="username" name="username" required="required" />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required="required" />
+                    <button type="button" class="toggle-password">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login">Login</button>
+
+        </form>
+
+        <p style="text-align:center; margin-top:20px;">
+            Belum punya akun? <a href="register.xhtml">Daftar disini</a>
+        </p>
+
+    </div>
+
+    <!-- === JAVASCRIPT INTEGRATION === -->
+    <!-- Karena XHTML, semua inline JS wajib CDATA -->
+
+    <!-- Notifikasi -->
+    <script type="text/javascript" src="../js/Notifikasi.js"></script>
+
+    <!-- Validasi form -->
+    <script type="text/javascript" src="../js/FormValidation.js"></script>
+
+    <!-- Interaksi UI (password toggle, focus effect) -->
+    <script type="text/javascript" src="../js/InteraktifWeb.js"></script>
+
+    <!-- Handler untuk pesan URL -->
+    <script type="text/javascript">
+    //<![CDATA[
+        window.onload = function() {
+
+            var params = new URLSearchParams(window.location.search);
+
+            if (params.get('error')) {
+                showError(params.get('error'));
+            }
+
+            if (params.get('success')) {
+                showSuccess(params.get('success'));
+            }
+
+            document.getElementById('username').focus();
+        };
+    //]]>
+    </script>
+
+</body>
+</html>

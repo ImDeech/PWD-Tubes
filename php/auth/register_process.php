@@ -167,7 +167,7 @@ try {
     error_log("Registration error: " . $e->getMessage());
     
     // Redirect dengan error umum
-    header("Location: ../../register.xhtml?error=" . urlencode("Terjadi kesalahan sistem. Silakan coba lagi."));
+    header("Location: ../../xhtml/register.xhtml?error=" . urlencode("Terjadi kesalahan sistem. Silakan coba lagi."));
     exit;
 }
 

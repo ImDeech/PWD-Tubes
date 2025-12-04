@@ -4,13 +4,13 @@ function isValidEmail(email) {
     return regex.test(email);
 }
 
-// PASSWORD CHECK
+// PASSWORD STRENGTH
 function isStrongPassword(password) {
     var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])(?!.*\s).{6,}$/;
     return regex.test(password);
 }
 
-// VALIDASI FORM REGISTER
+// VALIDASI REGISTER FORM
 var registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
@@ -28,82 +28,77 @@ if (registerForm) {
         var emailErr = document.getElementById("emailError");
         var passErr = document.getElementById("passwordError");
 
+        // Reset error
         namaErr.innerHTML = "";
         userErr.innerHTML = "";
         emailErr.innerHTML = "";
         passErr.innerHTML = "";
 
-        // Validasi Nama
         if (nama === "") {
             namaErr.innerHTML = "Nama tidak boleh kosong!";
             valid = false;
         }
 
-        // Validasi Username
         if (username === "") {
             userErr.innerHTML = "Username tidak boleh kosong!";
             valid = false;
-        } 
-        else if (username.length < 4) {
+        } else if (username.length < 4) {
             userErr.innerHTML = "Username minimal 4 karakter!";
             valid = false;
         }
 
-        // Validasi Email
         if (email === "") {
             emailErr.innerHTML = "Email tidak boleh kosong!";
             valid = false;
-        } 
-        else if (!isValidEmail(email)) {
+        } else if (!isValidEmail(email)) {
             emailErr.innerHTML = "Format email tidak valid!";
             valid = false;
         }
 
-        // Validasi Password
         if (password === "") {
             passErr.innerHTML = "Password tidak boleh kosong!";
             valid = false;
-        } 
-        else if (password.length < 6) {
+        } else if (password.length < 6) {
             passErr.innerHTML = "Password minimal 6 karakter!";
             valid = false;
-        } 
-        else if (!isStrongPassword(password)) {
+        } else if (!isStrongPassword(password)) {
             passErr.innerHTML = "Password harus mengandung huruf, angka, dan simbol!";
             valid = false;
         }
 
-        if (!valid) e.preventDefault();
+        if (!valid) {
+            e.preventDefault();
+        }
     });
 }
 
-// VALIDASI FORM LOGIN
+// VALIDASI LOGIN FORM (Sinkron dengan login.xhtml)
 var loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
+
     loginForm.addEventListener("submit", function (e) {
 
-        var valid = true;
+        var username = document.getElementById("username").value.trim();
+        var password = document.getElementById("password").value.trim();
 
-        var username = document.getElementById("loginUsername").value.trim();
-        var password = document.getElementById("loginPassword").value.trim();
-
-        var userErr = document.getElementById("loginUserError");
-        var passErr = document.getElementById("loginPassError");
-
-        userErr.innerHTML = "";
-        passErr.innerHTML = "";
+        // Tidak menggunakan span error — diganti notifikasi box
+        var errors = [];
 
         if (username === "") {
-            userErr.innerHTML = "Username tidak boleh kosong!";
-            valid = false;
+            errors.push("Username/Email harus diisi");
         }
 
         if (password === "") {
-            passErr.innerHTML = "Password tidak boleh kosong!";
-            valid = false;
+            errors.push("Password harus diisi");
         }
 
-        if (!valid) e.preventDefault();
+        if (errors.length > 0) {
+            if (typeof showError === "function") {
+                showError(errors.join(", "));
+            }
+            e.preventDefault();
+        }
+
     });
 }

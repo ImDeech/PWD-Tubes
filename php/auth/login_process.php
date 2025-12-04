@@ -4,7 +4,7 @@ require_once 'db_connection.php';
 
 // Redirect jika sudah login
 if (isset($_SESSION['user_id'])) {
-    header("Location: ../../dashboard.php");
+    header("Location: ../../php/pages/home.php");
     exit;
 }
 
@@ -95,7 +95,7 @@ try {
     if (($user['role'] ?? 'user') === 'admin') {
         header("Location: ../../admin/dashboard.php");
     } else {
-        header("Location: ../../dashboard.php");
+        header("Location: ../../xhtml/home.xhtml");
     }
     exit;
     
@@ -104,7 +104,7 @@ try {
     error_log("Login error: " . $e->getMessage());
     
     // Redirect dengan error umum (jangan tampilkan detail error ke user)
-    header("Location: ../../login.xhtml?error=" . urlencode("Terjadi kesalahan sistem. Silakan coba lagi."));
+    header("Location: ../../xhtml/login.xhtml?error=" . urlencode("Terjadi kesalahan sistem. Silakan coba lagi."));
     exit;
 }
 
