@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="id" lang="id">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Numpang - Profil Saya</title>
+    <link rel="stylesheet" type="text/css" href="/css/profile/profile.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="header-top">
+        <div class="container header-content">
+
+            <div class="user-profile-top">
+                <img src="{{FOTO_PROFIL}}" alt="Profile" class="avatar" />
+                <div class="user-info">
+                    <span class="name">{{NAMA_USER}}</span>
+                    <span class="location"><i class="ri-user-line"></i> Profil Akun</span>
+                </div>
+            </div>
+
+            <div class="header-right-actions">
+                <a href="/php/auth/logout.php" class="logout-btn">
+                    <i class="ri-logout-circle-line"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container profile-content">
+        
+        <div class="profile-card">
+            <h2>Informasi Akun</h2>
+
+            <div class="info-row">
+                <span class="label">Nama Lengkap</span>
+                <span class="value">{{NAMA_USER}}</span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Username</span>
+                <span class="value">{{USERNAME}}</span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Email</span>
+                <span class="value">{{EMAIL}}</span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">No. Telepon</span>
+                <span class="value">{{NO_TELP}}</span>
+            </div>
+        </div>
+
+        <div class="profile-card danger-zone">
+            <h2>Aksi Akun</h2>
+
+            <a href="/php/auth/logout.php" class="btn-logout-big">
+                <i class="ri-logout-box-r-line"></i> Logout
+            </a>
+
+            <a href="/php/auth/delete_account.php" class="btn-remove-big" onclick="return confirm('Yakin ingin menghapus akun secara permanen? Tindakan ini tidak dapat dibatalkan.')">
+                <i class="ri-delete-bin-5-line"></i> Hapus Akun
+            </a>
+        </div>
+
+    </div>
+
+    <!-- NAVBAR -->
+    <div class="bottom-navbar">
+        <div class="container nav-items-wrapper">
+            <a href="/php/pages/home.php" class="nav-btn">
+                <i class="ri-home-5-line"></i>
+                <span>Beranda</span>
+            </a>
+
+            <a href="/php/pages/keranjang.php" class="nav-btn">
+                <i class="ri-file-list-3-line"></i>
+                <span>Keranjang</span>
+            </a>
+
+            <a href="#" class="nav-btn active">
+                <i class="ri-user-fill"></i>
+                <span>Profil</span>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

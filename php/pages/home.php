@@ -149,7 +149,7 @@ if ($result && $result->num_rows > 0) {
                 <i class="ri-file-list-3-line"></i>
                 <span>Keranjang</span>
             </a>
-            <a href="#" class="nav-btn">
+            <a href="/php/pages/profile.php" class="nav-btn">
                 <i class="ri-user-line"></i>
                 <span>Profil</span>
             </a>

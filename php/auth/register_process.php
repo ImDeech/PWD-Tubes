@@ -7,7 +7,7 @@ require_once 'db_connection.php';
 
 // Redirect jika sudah login
 if (isset($_SESSION['user_id'])) {
-    header("Location: ../../dashboard.php");
+    header("Location: ../../home.php");
     exit;
 }
 

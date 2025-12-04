@@ -75,7 +75,6 @@ try {
     $_SESSION['username'] = $user['username'];
     $_SESSION['nama'] = $user['nama'];
     $_SESSION['email'] = $user['email'];
-    $_SESSION['role'] = $user['role'] ?? 'user';
     
     // Set login time
     $_SESSION['login_time'] = time();
