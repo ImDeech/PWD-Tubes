@@ -73,33 +73,6 @@ if ($result && $result->num_rows > 0) {
             <i class="ri-arrow-right-s-line" style="font-size: 24px;"></i>
         </div>
 
-        <div class="section-title">
-            <h2>Kategori Kost</h2>
-            <a href="#">Lihat Semua</a>
-        </div>
-
-        <div class="category-grid">
-            <a href="/php/pages/fasilitas.php" class="card-big">
-                <img src="/media/onboarding1.jpg" alt="Kost Populer" />
-                <div class="card-overlay"><span class="badge">Kost Populer</span></div>
-                <div class="heart-icon"><i class="ri-heart-3-fill"></i></div>
-            </a>
-            <a href="/php/pages/fasilitas.php" class="card-big">
-                <img src="/media/onboarding2.jpg" alt="Kost Dicari" />
-                <div class="card-overlay"><span class="badge">Kost Paling Dicari</span></div>
-                <div class="heart-icon"><i class="ri-heart-3-fill"></i></div>
-            </a>
-            <a href="/php/pages/fasilitas.php" class="card-big">
-                <img src="/media/onboarding3.jpg" alt="Kost Eksklusif" />
-                <div class="card-overlay"><span class="badge">Kost Eksklusif</span></div>
-                <div class="heart-icon"><i class="ri-heart-3-fill"></i></div>
-            </a>
-        </div>
-
-
-        <!-- ====================== -->
-        <!--      REKOMENDASI       -->
-        <!-- ====================== -->
         <div class="section-top-space">
             <div class="section-title">
                 <h2>Rekomendasi untuk Anda</h2>
@@ -121,7 +94,7 @@ if ($result && $result->num_rows > 0) {
                 <?php foreach ($kostList as $kost): ?>
                     <div class="list-item">
                         <div class="thumb">
-                            <img src="/media/<?= htmlspecialchars($kost['image_path'] ?? 'default.jpg') ?>" 
+                            <img src="/media/<?= htmlspecialchars($kost['kost_path']) ?>"
                                  alt="<?= htmlspecialchars($kost['nama_kost']) ?>" />
                         </div>
 
