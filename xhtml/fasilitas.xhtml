@@ -25,99 +25,63 @@
     <div class="container main-content">
 
         <div class="detail-hero">
-            <img src="/media/onboarding3.jpg" alt="Foto Kamar" />
+            <img src="{{GAMBAR_KAMAR}}" alt="Foto Kamar" />
         </div>
 
         <div class="info-section">
             <div class="info-left">
-                <h1>Floraya Kost Eksklusif</h1>
-                <p class="location"><i class="ri-map-pin-fill"></i> Babarsari, Sleman</p>
+                <h1>{{NAMA_KOST}}</h1>
+                <p class="location"><i class="ri-map-pin-fill"></i> {{ALAMAT}}</p>
                 <div class="tags">
                     <span class="tag">Kost Putri</span>
                     <span class="tag">Ada Sisa 2 Kamar</span>
                 </div>
             </div>
             <div class="info-right">
-                <p class="price-big">Rp 1.000.000 <span>/bulan</span></p>
+                <p class="price-big">Rp {{HARGA}} <span>/bulan</span></p>
                 
-                <a href="/php/pages/sewa.php" class="btn-booking-large">Ajukan Sewa</a>
+                <a href="/php/pages/sewa.php?kamar_id={{KAMAR_ID}}" class="btn-booking-large">Ajukan Sewa</a>
                 
             </div>
         </div>
 
         <div class="facility-container">
 
+            <!-- SPESIFIKASI KAMAR -->
             <div class="spec-group">
                 <h3>Spesifikasi tipe kamar</h3>
                 <div class="grid-list">
-                    <div class="spec-item">
-                        <i class="ri-ruler-2-line"></i>
-                        <span>3 x 2 meter</span>
-                    </div>
-                    <div class="spec-item">
-                        <i class="ri-flashlight-fill"></i>
-                        <span>Termasuk listrik</span>
-                    </div>
+                    {{LIST_SPESIFIKASI}}
                 </div>
             </div>
 
             <hr class="divider" />
 
+            <!-- FASILITAS KAMAR -->
             <div class="spec-group">
                 <h3>Fasilitas kamar</h3>
                 <div class="grid-list">
-                    <div class="spec-item">
-                        <i class="ri-hotel-bed-fill"></i>
-                        <span>Kasur</span>
-                    </div>
-                    <div class="spec-item">
-                        <i class="ri-archive-drawer-line"></i>
-                        <span>Lemari / Storage</span>
-                    </div>
-                    <div class="spec-item">
-                        <i class="ri-window-fill"></i>
-                        <span>Jendela</span>
-                    </div>
-                    <div class="spec-item">
-                        <i class="ri-user-smile-line"></i>
-                        <span>Bantal</span>
-                    </div>
+                    {{LIST_FASILITAS_KAMAR}}
                 </div>
             </div>
 
             <hr class="divider" />
 
+            <!-- FASILITAS KAMAR MANDI -->
             <div class="spec-group">
                 <h3>Fasilitas kamar mandi</h3>
                 <div class="grid-list">
-                    <div class="spec-item">
-                        <i class="ri-drop-fill"></i>
-                        <span>Kloset Jongkok</span>
-                    </div>
-                    <div class="spec-item">
-                        <i class="ri-door-open-line"></i>
-                        <span>K. Mandi Luar</span>
-                    </div>
-                    <div class="spec-item">
-                        <i class="ri-cup-fill"></i>
-                        <span>Ember mandi</span>
-                    </div>
+                    {{LIST_FASILITAS_MANDI}}
                 </div>
             </div>
 
             <hr class="divider" />
 
+            <!-- PERATURAN -->
             <div class="spec-group">
                 <h3>Peraturan khusus tipe kamar ini</h3>
                 <div class="grid-list">
-                    <div class="spec-item">
-                        <i class="ri-group-line"></i>
-                        <span>Maks. 1 orang/kamar</span>
-                    </div>
-                    <div class="spec-item">
-                        <i class="ri-time-line"></i>
-                        <span>Akses 24 Jam</span>
-                    </div>
+                    {{LIST_PERATURAN}}
                 </div>
             </div>
 
