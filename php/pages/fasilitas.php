@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../db_connection.php";
+require_once "../auth/db_connection.php";
 
 // Cek apakah user login
 if (!isset($_SESSION['user_id'])) {
