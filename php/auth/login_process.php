@@ -83,11 +83,6 @@ try {
     // Set session expiry (8 jam)
     $_SESSION['expiry_time'] = time() + (8 * 60 * 60);
     
-    // Update last login time di database (opsional)
-    $updateStmt = $conn->prepare("UPDATE users SET last_login = NOW() WHERE user_id = ?");
-    $updateStmt->bind_param("i", $user['user_id']);
-    $updateStmt->execute();
-    
     // Log successful login (opsional)
     error_log("Successful login for user_id: " . $user['user_id'] . " from IP: " . $_SERVER['REMOTE_ADDR']);
     
