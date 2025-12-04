@@ -144,7 +144,7 @@ try {
         error_log("New registration - user_id: $user_id, username: $username, email: $email");
         
         // Redirect ke dashboard
-        header("Location: ../../dashboard.php?success=" . urlencode("Registrasi berhasil! Selamat datang $nama"));
+        header("Location: ../pages/home.php?success=" . urlencode("Registrasi berhasil! Selamat datang $nama"));
         exit;
     } else {
         // Tangkap error MySQL

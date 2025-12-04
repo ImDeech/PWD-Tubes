@@ -7,8 +7,6 @@ body {
     background-color: #f9f9f9;
 }
 
-/* ===== HEADER ===== */
-
 .header-top {
     position: fixed;
     top: 0;
@@ -64,8 +62,6 @@ body {
     text-decoration: none;
 }
 
-/* ===== CONTENT ===== */
-
 .profile-content {
     padding-top: 110px;
     padding-bottom: 120px;
@@ -102,8 +98,6 @@ body {
     color: #333;
 }
 
-/* ===== BUTTONS ===== */
-
 .btn-logout-big,
 .btn-remove-big {
     display: block;
@@ -132,8 +126,6 @@ body {
 .btn-remove-big:hover {
     background: #d63031;
 }
-
-/* ===== NAVBAR ===== */
 
 .bottom-navbar {
     position: fixed;
