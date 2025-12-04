@@ -15,15 +15,18 @@ require_once "../auth/db_connection.php";
 // Query ambil kost + gambar thumbnail + harga kamar termurah
 $sql = "
     SELECT 
-        k.kost_id,
-        k.nama_kost,
-        k.alamat,
-        MIN(ka.harga) AS harga,
-        ki.kost_path
-    FROM kost k
-    LEFT JOIN kamar ka ON ka.kost_id = k.kost_id
-    LEFT JOIN kost_image ki ON ki.kost_id = k.kost_id AND ki.thumbnail = 1
-    GROUP BY k.kost_id
+    ks.kost_id,
+    ks.nama_kost,
+    ks.alamat,
+    k.kamar_id,
+    k.harga,
+    ki.kost_path
+FROM kost ks
+JOIN kamar k ON ks.kost_id = k.kost_id
+LEFT JOIN kost_image ki ON ks.kost_id = ki.kost_id AND ki.thumbnail = 1
+WHERE k.status_kamar = 'tersedia'
+LIMIT 20;
+
 ";
 
 $result = $conn->query($sql);
@@ -119,7 +122,7 @@ if ($result && $result->num_rows > 0) {
                                         <i class="ri-shopping-cart-2-line"></i>
                                     </a>
 
-                                    <a href="/php/pages/fasilitas.php?kost_id=<?= $kost['kost_id'] ?>" class="btn-book-small">
+                                    <a href="/php/pages/fasilitas.php?kamar_id=<?= $kost['kamar_id'] ?>" class="btn-book-small">
                                         Sewa
                                     </a>
                                 </div>

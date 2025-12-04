@@ -2,114 +2,135 @@
 session_start();
 require_once "../auth/db_connection.php";
 
-// Cek login
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../../xhtml/login.xhtml?error=Silakan login dulu");
     exit;
 }
 
-$nama_user = $_SESSION['nama'];
-
-// Ambil kost_id
-$kost_id = isset($_GET['kost_id']) ? intval($_GET['kost_id']) : 0;
-if ($kost_id <= 0) {
-    die("ID kost tidak ditemukan.");
+$kamar_id = $_GET['kamar_id'] ?? null;
+if (!$kamar_id) {
+    die("Kamar ID tidak ditemukan.");
 }
 
-// Ambil data kost
-$stmt = $conn->prepare("SELECT * FROM kost WHERE kost_id = ?");
-$stmt->bind_param("i", $kost_id);
-$stmt->execute();
-$kost = $stmt->get_result()->fetch_assoc();
+/* -------------------------
+   FUNGSI PARSE EMOJI -> ICON
+----------------------------*/
 
-// Ambil 1 kamar default (kamar tersedia)
-$stmt = $conn->prepare("
-    SELECT * FROM kamar 
-    WHERE kost_id = ? AND status_kamar != 'terisi' 
-    ORDER BY kamar_id ASC LIMIT 1
-");
-$stmt->bind_param("i", $kost_id);
-$stmt->execute();
-$kamar = $stmt->get_result()->fetch_assoc();
+function parseFacilityItems($text) {
+    if ($text === null || trim($text) === '') return '';
 
-// Jika tidak ada kamar tersedia, ambil kamar pertama
-if (!$kamar) {
-    $stmt = $conn->prepare("SELECT * FROM kamar WHERE kost_id = ? LIMIT 1");
-    $stmt->bind_param("i", $kost_id);
-    $stmt->execute();
-    $kamar = $stmt->get_result()->fetch_assoc();
-}
+    // Mapping emoji -> remixicon class (emoji keys may be multi-codepoint, e.g. "🍽️")
+    $iconMap = [
+        "📐"   => "ri-ruler-2-line",
+        "⚡"   => "ri-flashlight-fill",
+        "🍽️"  => "ri-restaurant-2-fill",
+        "🛏️"  => "ri-hotel-bed-fill",
+        "🗄️"  => "ri-archive-drawer-line",
+        "🪟"   => "ri-window-fill",
+        "☁️"   => "ri-user-smile-line",
+        "💧"   => "ri-drop-fill",
+        "🚪"   => "ri-door-open-line",
+        "🪣"   => "ri-cup-fill",
+        "👥"   => "ri-group-line",
+        "🕛"   => "ri-time-line"
+    ];
 
-// Ambil gambar kost thumbnail
-$stmt = $conn->prepare("SELECT kost_path FROM kost_image WHERE kost_id = ? AND thumbnail = 1 LIMIT 1");
-$stmt->bind_param("i", $kost_id);
-$stmt->execute();
-$img = $stmt->get_result()->fetch_assoc();
-$img_path = $img ? "/media/" . $img['kost_path'] : "/media/default.jpg";
-
-// Fungsi untuk parse teks CSV dan memasukkan icon UI tetap
-function build_items($csv, $icons) {
-    $parts = array_map('trim', explode(',', $csv));
+    $items = array_map('trim', explode(',', $text));
     $html = "";
 
-    foreach ($parts as $index => $text) {
-        $icon = isset($icons[$index]) ? $icons[$index] : $icons[0];
+    foreach ($items as $item) {
+        if ($item === '') continue;
 
-        $html .= '
-            <div class="spec-item">
-                <i class="' . $icon . '"></i>
-                <span>' . htmlspecialchars($text) . '</span>
-            </div>
-        ';
+        $matchedEmoji = null;
+        $label = $item;
+
+        // Try to match any emoji key at the start of the string.
+        // We check longer emoji keys first to avoid partial matches (e.g. 🍽️ vs 🍽).
+        // Sort keys by length desc
+        $keys = array_keys($iconMap);
+        usort($keys, function($a, $b) {
+            return mb_strlen($b, 'UTF-8') - mb_strlen($a, 'UTF-8');
+        });
+
+        foreach ($keys as $k) {
+            $klen = mb_strlen($k, 'UTF-8');
+            // substring of item starting at 0 with length klen
+            $start = mb_substr($item, 0, $klen, 'UTF-8');
+            if ($start === $k) {
+                $matchedEmoji = $k;
+                // label is the remainder after the emoji
+                $label = trim(mb_substr($item, $klen, null, 'UTF-8'));
+                break;
+            }
+        }
+
+        // choose icon (mapped) or fallback
+        $icon = $matchedEmoji && isset($iconMap[$matchedEmoji]) ? $iconMap[$matchedEmoji] : "ri-checkbox-circle-line";
+
+        $html .= '<div class="spec-item">';
+        $html .= '<i class="' . $icon . '"></i>';
+        $html .= '<span>' . htmlspecialchars($label) . '</span>';
+        $html .= '</div>';
     }
+
     return $html;
 }
 
-// ICON yang dipakai layout asli
-$icon_kamar = [
-    "ri-ruler-2-line",
-    "ri-flashlight-fill"
-];
+/* -------------------------
+   QUERY KAMAR + KOST + GAMBAR
+----------------------------*/
 
-$icon_fasilitas = [
-    "ri-hotel-bed-fill",
-    "ri-archive-drawer-line",
-    "ri-window-fill",
-    "ri-user-smile-line"
-];
+$sql = "
+SELECT 
+    k.kamar_id,
+    k.harga,
+    k.spesifikasi_kamar,
+    k.fasilitas_kamar,
+    k.fasilitas_kamar_mandi,
+    k.peraturan,
+    k.status_kamar,
+    ks.nama_kost,
+    ks.alamat,
+    (
+        SELECT ki.kost_path
+        FROM kost_image ki
+        WHERE ki.kost_id = ks.kost_id AND ki.thumbnail = 1
+        LIMIT 1
+    ) AS image_path
+FROM kamar k
+JOIN kost ks ON ks.kost_id = k.kost_id
+WHERE k.kamar_id = ?
+";
 
-$icon_mandi = [
-    "ri-drop-fill",
-    "ri-door-open-line",
-    "ri-cup-fill"
-];
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $kamar_id);
+$stmt->execute();
+$res = $stmt->get_result();
+$data = $res->fetch_assoc();
 
-$icon_peraturan = [
-    "ri-group-line",
-    "ri-time-line"
-];
+if (!$data) {
+    die("Data kamar tidak ditemukan.");
+}
 
-// Buat list dinamis
-$list_spesifikasi = build_items($kamar['spesifikasi_kamar'], $icon_kamar);
-$list_fasilitas = build_items($kamar['fasilitas_kamar'], $icon_fasilitas);
-$list_mandi = build_items($kamar['fasilitas_kamar_mandi'], $icon_mandi);
-$list_peraturan = build_items($kamar['peraturan'], $icon_peraturan);
+/* -------------------------
+   GENERATE HTML DINAMIS
+----------------------------*/
 
-// Load template XHTML
-$template = file_get_contents("../../xhtml/fasilitas.xhtml");
+$html = file_get_contents("../../xhtml/fasilitas.xhtml");
 
-// Replace placeholder UI
-$template = str_replace("{{GAMBAR_KAMAR}}", $img_path, $template);
-$template = str_replace("{{NAMA_KOST}}", htmlspecialchars($kost['nama_kost']), $template);
-$template = str_replace("{{ALAMAT}}", htmlspecialchars($kost['alamat']), $template);
-$template = str_replace("{{HARGA}}", number_format($kamar['harga'], 0, ',', '.'), $template);
-$template = str_replace("{{KAMAR_ID}}", $kamar['kamar_id'], $template);
+$html = str_replace("{{GAMBAR_KAMAR}}", $data['image_path'], $html);
+$html = str_replace("{{NAMA_KOST}}", htmlspecialchars($data['nama_kost']), $html);
+$html = str_replace("{{ALAMAT}}", htmlspecialchars($data['alamat']), $html);
 
-$template = str_replace("{{LIST_SPESIFIKASI}}", $list_spesifikasi, $template);
-$template = str_replace("{{LIST_FASILITAS_KAMAR}}", $list_fasilitas, $template);
-$template = str_replace("{{LIST_FASILITAS_MANDI}}", $list_mandi, $template);
-$template = str_replace("{{LIST_PERATURAN}}", $list_peraturan, $template);
+$sisa_kamar = ($data['status_kamar'] === "tersedia") ? "Ada Kamar" : "Habis";
+$html = str_replace("{{SISA_KAMAR}}", $sisa_kamar, $html);
 
-// Tampilkan
-echo $template;
-?>
+$html = str_replace("{{HARGA}}", number_format($data['harga'], 0, ',', '.'), $html);
+$html = str_replace("{{KAMAR_ID}}", $data['kamar_id'], $html);
+
+$html = str_replace("{{SPESIFIKASI}}", parseFacilityItems($data['spesifikasi_kamar']), $html);
+$html = str_replace("{{FASILITAS_KAMAR}}", parseFacilityItems($data['fasilitas_kamar']), $html);
+$html = str_replace("{{FASILITAS_MANDI}}", parseFacilityItems($data['fasilitas_kamar_mandi']), $html);
+$html = str_replace("{{PERATURAN}}", parseFacilityItems($data['peraturan']), $html);
+
+echo $html;

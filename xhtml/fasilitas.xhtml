@@ -33,8 +33,8 @@
                 <h1>{{NAMA_KOST}}</h1>
                 <p class="location"><i class="ri-map-pin-fill"></i> {{ALAMAT}}</p>
                 <div class="tags">
-                    <span class="tag">Kost Putri</span>
-                    <span class="tag">Ada Sisa 2 Kamar</span>
+                    <span class="tag">{{JENIS_KOST}}</span>
+                    <span class="tag">{{SISA_KAMAR}}</span>
                 </div>
             </div>
             <div class="info-right">
@@ -47,41 +47,37 @@
 
         <div class="facility-container">
 
-            <!-- SPESIFIKASI KAMAR -->
             <div class="spec-group">
                 <h3>Spesifikasi tipe kamar</h3>
                 <div class="grid-list">
-                    {{LIST_SPESIFIKASI}}
+                    {{SPESIFIKASI}}
                 </div>
             </div>
 
             <hr class="divider" />
 
-            <!-- FASILITAS KAMAR -->
             <div class="spec-group">
                 <h3>Fasilitas kamar</h3>
                 <div class="grid-list">
-                    {{LIST_FASILITAS_KAMAR}}
+                    {{FASILITAS_KAMAR}}
                 </div>
             </div>
 
             <hr class="divider" />
 
-            <!-- FASILITAS KAMAR MANDI -->
             <div class="spec-group">
                 <h3>Fasilitas kamar mandi</h3>
                 <div class="grid-list">
-                    {{LIST_FASILITAS_MANDI}}
+                    {{FASILITAS_MANDI}}
                 </div>
             </div>
 
             <hr class="divider" />
 
-            <!-- PERATURAN -->
             <div class="spec-group">
                 <h3>Peraturan khusus tipe kamar ini</h3>
                 <div class="grid-list">
-                    {{LIST_PERATURAN}}
+                    {{PERATURAN}}
                 </div>
             </div>
 
