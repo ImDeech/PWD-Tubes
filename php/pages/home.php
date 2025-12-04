@@ -80,17 +80,17 @@ if ($result && $result->num_rows > 0) {
 
         <div class="category-grid">
             <a href="/php/pages/fasilitas.php" class="card-big">
-                <img src="/media/onboarding gambar 1.jpg" alt="Kost Populer" />
+                <img src="/media/onboarding1.jpg" alt="Kost Populer" />
                 <div class="card-overlay"><span class="badge">Kost Populer</span></div>
                 <div class="heart-icon"><i class="ri-heart-3-fill"></i></div>
             </a>
             <a href="/php/pages/fasilitas.php" class="card-big">
-                <img src="/media/onboarding gambar 2.jpg" alt="Kost Dicari" />
+                <img src="/media/onboarding2.jpg" alt="Kost Dicari" />
                 <div class="card-overlay"><span class="badge">Kost Paling Dicari</span></div>
                 <div class="heart-icon"><i class="ri-heart-3-fill"></i></div>
             </a>
             <a href="/php/pages/fasilitas.php" class="card-big">
-                <img src="/media/onboarding gambar 3.jpg" alt="Kost Eksklusif" />
+                <img src="/media/onboarding3.jpg" alt="Kost Eksklusif" />
                 <div class="card-overlay"><span class="badge">Kost Eksklusif</span></div>
                 <div class="heart-icon"><i class="ri-heart-3-fill"></i></div>
             </a>
