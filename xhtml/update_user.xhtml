@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="id" lang="id">
+<head>
+    <title>Update Akun - Sistem Kost</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="/css/style.css" type="text/css" />
+
+    <style type="text/css">
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { font-weight: bold; display: block; margin-bottom: 5px; }
+        .form-group input {
+            width: 100%; padding: 12px; font-size: 15px;
+            border: 1px solid #ddd; border-radius: 5px;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: #2853AF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h2 style="text-align:center; margin-bottom:20px;">Update Akun</h2>
+
+        <form method="POST" action="/php/pages/update_user_process.php">
+
+            <div class="form-group">
+                <label>Nama Lengkap:</label>
+                <input type="text" name="nama" value="{{NAMA_USER}}" required="required" />
+            </div>
+
+            <div class="form-group">
+                <label>Username:</label>
+                <input type="text" name="username" value="{{USERNAME}}" required="required" />
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" value="{{EMAIL}}" required="required" />
+            </div>
+
+            <div class="form-group">
+                <label>No. Telepon:</label>
+                <input type="text" name="no_telp" value="{{NO_TELP}}" />
+            </div>
+
+            <button type="submit" class="btn-login">Simpan Perubahan</button>
+
+        </form>
+
+        <p style="text-align:center; margin-top:15px;">
+            <a href="/php/pages/profile.php">Kembali ke Profil</a>
+        </p>
+
+    </div>
+
+</body>
+</html>

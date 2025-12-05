@@ -79,13 +79,6 @@ if ($result && $result->num_rows > 0) {
         <div class="section-top-space">
             <div class="section-title">
                 <h2>Rekomendasi untuk Anda</h2>
-                <a href="#">Lihat Semua</a>
-            </div>
-
-            <div class="filter-buttons">
-                <button class="filter-btn active">Semua</button>
-                <button class="filter-btn">Kost Putri</button>
-                <button class="filter-btn">Kost Putra</button>
             </div>
 
             <div class="recommendation-list">
