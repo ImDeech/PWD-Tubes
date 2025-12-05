@@ -8,100 +8,70 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Hanya proses POST request
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
+// Hanya POST
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../login.xhtml?error=" . urlencode("Method tidak diizinkan"));
     exit;
 }
 
-// Ambil data dari form
 $username = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
 
-// Validasi input
-$errors = [];
-
-if (empty($username)) {
-    $errors[] = "Username/Email harus diisi";
-}
-
-if (empty($password)) {
-    $errors[] = "Password harus diisi";
-}
-
-// Jika ada error, redirect kembali dengan pesan error
-if (!empty($errors)) {
-    $errorMessage = implode(", ", $errors);
-    header("Location: ../../login.xhtml?error=" . urlencode($errorMessage));
+if (empty($username) || empty($password)) {
+    header("Location: ../../login.xhtml?error=" . urlencode("Username dan Password wajib diisi"));
     exit;
 }
 
-// Cari user di database
 try {
-    // Gunakan prepared statement untuk mencegah SQL injection
+    // Cari user berdasarkan username atau email
     $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
     $stmt->bind_param("ss", $username, $username);
     $stmt->execute();
     $result = $stmt->get_result();
-    
-    // Cek apakah user ditemukan
+
     if ($result->num_rows === 0) {
         header("Location: ../../login.xhtml?error=" . urlencode("Username/Email tidak ditemukan"));
         exit;
     }
-    
-    // Ambil data user
+
     $user = $result->fetch_assoc();
-    
-    // Verifikasi password (dengan password_hash)
+
+    // Verifikasi password
     if (!password_verify($password, $user['password'])) {
-        // Log failed attempt (opsional)
-        error_log("Failed login attempt for username: $username from IP: " . $_SERVER['REMOTE_ADDR']);
-        
         header("Location: ../../login.xhtml?error=" . urlencode("Password salah"));
         exit;
     }
-    
-    // Cek jika akun aktif (jika ada kolom status)
-    if (isset($user['status']) && $user['status'] != 'active') {
-        header("Location: ../../login.xhtml?error=" . urlencode("Akun tidak aktif. Hubungi administrator."));
-        exit;
-    }
-    
-    // LOGIN BERHASIL
-    
-    // Set session variables
+
+    // ---- CEK ADMIN TANPA KOLOM ROLE ----
+    $checkAdmin = $conn->prepare("SELECT admin_id FROM admin WHERE user_id = ?");
+    $checkAdmin->bind_param("i", $user['user_id']);
+    $checkAdmin->execute();
+    $isAdmin = $checkAdmin->get_result()->num_rows > 0;
+
+    // Simpan session
     $_SESSION['user_id'] = $user['user_id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['nama'] = $user['nama'];
     $_SESSION['email'] = $user['email'];
-    
-    // Set login time
+
+    $_SESSION['is_admin'] = $isAdmin; // penting
+
+    // Waktu login
     $_SESSION['login_time'] = time();
-    
-    // Set session expiry (8 jam)
-    $_SESSION['expiry_time'] = time() + (8 * 60 * 60);
-    
-    // Log successful login (opsional)
-    error_log("Successful login for user_id: " . $user['user_id'] . " from IP: " . $_SERVER['REMOTE_ADDR']);
-    
-    // Redirect ke dashboard berdasarkan role
-    if (($user['role'] ?? 'user') === 'admin') {
-        header("Location: ../../admin/dashboard.php");
+    $_SESSION['expiry_time'] = time() + (60 * 60 * 8);
+
+    // Redirect sesuai role
+    if ($isAdmin) {
+        header("Location: ../../php/admin/admin_kost.php");
     } else {
         header("Location: ../../php/pages/home.php");
     }
     exit;
-    
+
 } catch (Exception $e) {
-    // Log error
     error_log("Login error: " . $e->getMessage());
-    
-    // Redirect dengan error umum (jangan tampilkan detail error ke user)
-    header("Location: ../../xhtml/login.xhtml?error=" . urlencode("Terjadi kesalahan sistem. Silakan coba lagi."));
+    header("Location: ../../login.xhtml?error=" . urlencode("Kesalahan sistem"));
     exit;
 }
 
-// Tutup koneksi
-$conn->close();
 ?>

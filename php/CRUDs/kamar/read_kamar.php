@@ -1,5 +1,5 @@
 <?php
-include "../php/auth/db_connection.php";
+include "../../auth/db_connection.php";
 
 $result = mysqli_query($conn, "SELECT kamar.*, kost.nama_kost AS nama_kost FROM kamar JOIN kost ON kamar.kost_id = kost.kost_id
                         ORDER BY kamar_id DESC");
