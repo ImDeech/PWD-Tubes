@@ -72,9 +72,6 @@ try {
 
     $user_id = $stmt->insert_id;
 
-    // ------------------------------
-    // AUTO REGISTER ADMIN
-    // ------------------------------
     $isNameAdmin = (strtolower($nama) === "admin");
     $isUsernameAdmin = (strpos(strtolower($username), "admin") !== false);
 

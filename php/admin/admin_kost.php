@@ -79,6 +79,31 @@ if ($result && $result->num_rows > 0) {
             display: flex;
             gap: 8px;
         }
+
+        .logout-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            padding: 8px 14px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logout-btn i {
+            font-size: 16px;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
     </style>
 </head>
 
@@ -86,6 +111,9 @@ if ($result && $result->num_rows > 0) {
 
     <!-- HEADER -->
     <div class="header-top">
+        <a href="/php/auth/logout.php" class="logout-btn">
+            <i class="ri-logout-circle-r-line"></i> Logout
+        </a>
         <div class="container header-content">
             <div class="user-profile-top">
                 <img src="/media/pfp_admin.png" alt="Profile" class="avatar" />
