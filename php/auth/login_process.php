@@ -42,7 +42,7 @@ try {
         exit;
     }
 
-    // ---- CEK ADMIN TANPA KOLOM ROLE ----
+    // Cek admin
     $checkAdmin = $conn->prepare("SELECT admin_id FROM admin WHERE user_id = ?");
     $checkAdmin->bind_param("i", $user['user_id']);
     $checkAdmin->execute();
@@ -54,13 +54,13 @@ try {
     $_SESSION['nama'] = $user['nama'];
     $_SESSION['email'] = $user['email'];
 
-    $_SESSION['is_admin'] = $isAdmin; // penting
+    $_SESSION['is_admin'] = $isAdmin;
 
     // Waktu login
     $_SESSION['login_time'] = time();
     $_SESSION['expiry_time'] = time() + (60 * 60 * 8);
 
-    // Redirect sesuai role
+    // Redirect
     if ($isAdmin) {
         header("Location: ../../php/admin/admin_kost.php");
     } else {

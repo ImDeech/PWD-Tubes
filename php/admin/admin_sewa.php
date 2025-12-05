@@ -116,7 +116,7 @@ if ($result && $result->num_rows > 0) {
 
 <body>
 
-    <!-- HEADER -->
+    <!-- header -->
     <div class="header-top">
         <a href="/php/auth/logout.php" class="logout-btn">
             <i class="ri-logout-circle-r-line"></i> Logout
@@ -132,7 +132,7 @@ if ($result && $result->num_rows > 0) {
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- main -->
     <div class="container main-content">
 
         <a href="/php/CRUDs/sewa/create_sewa.php" class="admin-btn-add">
@@ -201,7 +201,7 @@ if ($result && $result->num_rows > 0) {
 
     </div>
 
-    <!-- NAVBAR ADMIN -->
+    <!-- navbar admin -->
     <div class="bottom-navbar">
         <div class="container nav-items-wrapper">
 
