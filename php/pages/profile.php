@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Ambil data user
+/* ambil data user dari db_sistemkost */
 $stmt = $conn->prepare("SELECT username, nama, email, no_telp FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();

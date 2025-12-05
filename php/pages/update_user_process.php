@@ -23,8 +23,6 @@ $stmt = $conn->prepare("
 $stmt->bind_param("ssssi", $nama, $username, $email, $no_telp, $user_id);
 
 if ($stmt->execute()) {
-
-    // 🔥 UPDATE SESSION AGAR TAMPIL DI HOME.PHP
     $_SESSION['nama'] = $nama;
     $_SESSION['username'] = $username;
     $_SESSION['email'] = $email;
