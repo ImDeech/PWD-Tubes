@@ -16,10 +16,10 @@ if (passToggle && passField) {
     passToggle.addEventListener("click", function () {
         if (passField.type === "password") {
             passField.type = "text";
-            passToggle.innerHTML = "🙈";
+            passToggle.innerHTML = "⌣";
         } else {
             passField.type = "password";
-            passToggle.innerHTML = "👁️";
+            passToggle.innerHTML = "👁";
         }
     });
 }
